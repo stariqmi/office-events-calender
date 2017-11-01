@@ -1,5 +1,6 @@
 var map;
 var eventContainer = document.getElementById('event')
+var eventSubject = document.getElementById('event-subject')
 var eventDetails = document.getElementById('event-details')
 var eventAddress = document.getElementById('event-address')
 document.getElementById('close-event').onclick = function() {
@@ -11,7 +12,8 @@ function initMarkerClick(marker, event, googleAddress) {
       	map.setZoom(8);
       	map.setCenter(marker.getPosition());
 
-      	eventAddress.innerHTML = '<p>' + googleAddress + '</p>'
+      	eventSubject.innerHTML = event.subject;
+      	eventAddress.innerHTML = '<p>' + googleAddress + '</p>';
       	eventDetails.innerHTML = event.body.content;
       	eventContainer.style.display = 'block';
     });
