@@ -51,7 +51,8 @@ function tokenReceived(response, error, token) {
                        'node-tutorial-token-expires=' + token.token.expires_at.getTime() + ';Max-Age=4000',
                        'node-tutorial-email=' + email + ';Max-Age=4000'];
         response.setHeader('Set-Cookie', cookies);
-        response.writeHead(302, {'Location': 'http://localhost:8000/map'});
+        var location = process.env.ENV === 'development' ? 'http://localhost:8000/map' : 'https://office-events-map.herokuapp.com/map';
+        response.writeHead(302, {'Location': location});
         response.end();
       }
     }); 
