@@ -12,7 +12,7 @@ var credentials = {
 };
 var oauth2 = require('simple-oauth2').create(credentials);
 
-var redirectUri = 'http://localhost:8000/authorize';
+var redirectUri = process.env.ENV === 'development' ? 'http://localhost:8000/authorize' : 'https://office-events-map.herokuapp.com/authorize';
 
 // The scopes the app requires
 var scopes = [ 'openid',
