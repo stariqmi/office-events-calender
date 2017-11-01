@@ -1,0 +1,24 @@
+html
+  head
+    title Office Events
+    link(rel='stylesheet', href='/public/css/main.css')
+    link(rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css")
+    link(href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet")
+  body
+    //- h1 Hello World
+    //- h2 ToDo
+    //- ul
+    //-   li Add event markers
+    //-   li Add Date Range filter
+    #map
+    #event
+      i#close-event.material-icons close
+      #event-address
+      #event-details
+
+  script(type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js")
+  script(src="https://cdnjs.cloudflare.com/ajax/libs/superagent/3.8.0/superagent.min.js")
+  script(src="/public/js/main.js")
+  script(src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAcnaGx1evDDAk-TAeZwhT2LAl7xNwlrU0&callback=initMap"
+    async defer)
