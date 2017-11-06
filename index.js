@@ -12,6 +12,7 @@ handle['/events'] = events;
 handle['/map']  = map;
 handle['/public/js/main.js'] = handlers.static;
 handle['/public/css/main.css'] = handlers.static;
+handle['/public/js/moment.js'] = handlers.static;
 
 server.start(router.route, handle);
 
