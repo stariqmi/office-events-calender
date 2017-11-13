@@ -10,6 +10,8 @@ var eventDateTime = document.getElementById('event-date-time')
 var eventAddress = document.getElementById('event-address')
 var startDate = document.getElementById('start-date')
 var endDate = document.getElementById('end-date')
+var startDateTimeStamp = null
+var endDateTimeStamp = null
 
 document.getElementById('close-event').onclick = function() {
 	eventContainer.style.display = 'none';
@@ -25,7 +27,8 @@ $(startDate).pickadate({
 	closeOnSelect: false, // Close upon selecting a date,
 	onSet: function(unixTimestamp) {
 		clearMarkers()
-		filterEventsAfter(unixTimestamp.select)
+		startDateTimeStamp = unixTimestamp.select
+		filterEvents(unixTimestamp.select)
 		createEventMarkers(events, geocoder, map)
 	}
 });
@@ -39,37 +42,23 @@ $(endDate).pickadate({
 	closeOnSelect: false, // Close upon selecting a date,
 	onSet: function(unixTimestamp) {
 		clearMarkers()
-		filterEventsBefore(unixTimestamp.select)
+		endDateTimeStamp = unixTimestamp.select
+		filterEvents(unixTimestamp.select)
 		createEventMarkers(events, geocoder, map)
 	}
 });
 
-function filterEventsAfter(unixTimestamp) {
-	filterEvents(unixTimestamp, false, true)
-}
-
-function filterEventsBefore(unixTimestamp) {
-	filterEvents(unixTimestamp, true, false)
-}
-
-function filterEvents(unixTimestamp, before, after) {
-	var filterBy = moment(unixTimestamp)
-	currentEvents = events.length === 0 ? allEvents : events
+function filterEvents() {
+	var startDateMoment = moment(startDateTimeStamp)
+	var endDateMoment = moment(endDateTimeStamp)
 	events = []
 
 
-	if (before) {
-		for (var i = 0; i < currentEvents.length; i++) {
-			var eventMoment = moment(currentEvents[i].start.dateTime)
-			if (eventMoment.isSameOrBefore(filterBy)) events.push(currentEvents[i])
-		}
-	}
-
-	if (after) {
-		for (var i = 0; i < currentEvents.length; i++) {
-			var eventMoment = moment(currentEvents[i].start.dateTime)
-			if (eventMoment.isSameOrAfter(filterBy)) events.push(currentEvents[i])
-		}
+	for (var i = 0; i < allEvents.length; i++) {
+		var eventMoment = moment(allEvents[i].start.dateTime)
+		var isAfterStart = eventMoment.isSameOrAfter(startDateMoment)
+		var isBeforeEnd = eventMoment.isSameOrBefore(endDateMoment)
+		if (isAfterStart && isBeforeEnd) events.push(allEvents[i])
 	}
 
 	return events
