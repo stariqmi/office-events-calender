@@ -54,19 +54,21 @@ function filterEventsBefore(unixTimestamp) {
 
 function filterEvents(unixTimestamp, before, after) {
 	var filterBy = moment(unixTimestamp)
+	currentEvents = events.length === 0 ? allEvents : events
 	events = []
 
+
 	if (before) {
-		for (var i = 0; i < allEvents.length; i++) {
-			var eventMoment = moment(allEvents[i].start.dateTime)
-			if (eventMoment.isSameOrBefore(filterBy)) events.push(allEvents[i])
+		for (var i = 0; i < currentEvents.length; i++) {
+			var eventMoment = moment(currentEvents[i].start.dateTime)
+			if (eventMoment.isSameOrBefore(filterBy)) events.push(currentEvents[i])
 		}
 	}
 
 	if (after) {
-		for (var i = 0; i < allEvents.length; i++) {
-			var eventMoment = moment(allEvents[i].start.dateTime)
-			if (eventMoment.isSameOrAfter(filterBy)) events.push(allEvents[i])
+		for (var i = 0; i < currentEvents.length; i++) {
+			var eventMoment = moment(currentEvents[i].start.dateTime)
+			if (eventMoment.isSameOrAfter(filterBy)) events.push(currentEvents[i])
 		}
 	}
 
